@@ -37,21 +37,27 @@ var request = require('request');
 // HINT: Passing 'utf8' as the second argument to fs.readFile will give you a stringified file
 // HINT: You can get an array of lines by splitting on the '\n' character
 var pluckFirstLineFromFile = function(filePath, cb) {
-  var result = fs.readFile(filePath, 'utf8', function(err, data) {
+  fs.readFile(filePath, 'utf8', function(err, data) {
     if (err) {
       cb(err);
     }
     data = data.split('\n')[0]
-    cb(err, data);
-  })
+    cb(null, data);
+  });
 };
 
 // This function should retrieve the status code of a GET request to `url`
 // HINT: the `request` module has been included to help you send HTTP requests
 // HINT: there is a `statusCode` property on the `response` object
-var getStatusCode = function (url
-) {
-  // YOUR CODE HERE
+var getStatusCode = function (url, cb) {
+  request(url, 'utf8', function(err, data) {
+    if (err) {
+      cb(err);
+    }
+    else {
+      cb(null, data.statusCode)
+    }
+  });
 };
 
 // Export these functions so we can unit test them
