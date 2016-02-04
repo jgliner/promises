@@ -71,7 +71,18 @@ var generateRandomToken = function (callback) {
  });
 };
 
-var generateRandomTokenAsync; // TODO
+var generateRandomTokenAsync = function() {
+  return new Promise(function(resolve, reject) {
+    crypto.randomBytes(20, function(err, buffer) {
+      if (err) {
+        reject(err);
+      }
+      else {
+        resolve(buffer.toString('hex'));
+      }
+    })
+  })
+}
 
 
 // (3) Asyncronous file manipulation
